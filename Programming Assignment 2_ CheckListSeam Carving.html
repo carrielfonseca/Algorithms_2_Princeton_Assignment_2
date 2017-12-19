@@ -1,0 +1,224 @@
+
+<!-- saved from url=(0059)http://coursera.cs.princeton.edu/algs4/checklists/seam.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+Programming Assignment 2: Seam Carving
+</title>
+</head>
+
+<body>
+<h3>
+Programming Assignment 2: Seam Carving
+</h3>
+
+<p>
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr align="left">
+<td bgcolor="000000">
+<font size="+0" face="helvetica" color="ffffff">
+<center><b>Frequently Asked Questions</b></center>
+</font></td></tr></tbody></table>
+
+</p><p><em>We haven't offered this assignment before, so we don't know what kinds of
+questions students will have. We will add to the list as needed.</em>
+
+
+</p><p><b>How do I manipulate images in Java?</b>
+Use our <a href="https://introcs.cs.princeton.edu/java/stdlib/Picture.java.html">Picture</a>
+data type (which is part of <code>stdlib.jar</code>)
+and the <a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html">Color</a>
+data type (which is part of the java.awt library).
+Here is some more information about the
+<a href="https://introcs.cs.princeton.edu/java/31datatype/index.php#Color">Color</a>
+and
+<a href="https://introcs.cs.princeton.edu/java/31datatype/index.php#Picture">Picture</a>
+data types.
+<a href="https://introcs.cs.princeton.edu/java/31datatype/Luminance.java.html">Luminance.java</a>
+and
+<a href="https://introcs.cs.princeton.edu/java/31datatype/Grayscale.java.html">Grayscale.java</a>
+are example clients that use the <code>Color</code> and <code>Picture</code> data types, respectively.
+
+
+</p><p><b>I noticed that the Picture API has a method to change the origin (0, 0)
+from the upper teft to the lower left. Can I assume (0, 0) is the upper left pixel?</b>
+Yes.
+
+</p><p><b>Must the arguments to <code>removeHorizontalSeam()</code> and <code>removeVerticalSeam()</code>
+be minimum energy seams?</b>
+No. These methods should work for any valid seam (and throw an exception for any invalid seam).
+
+</p><p>
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr align="left">
+<td bgcolor="000000">
+<font size="+0" face="helvetica" color="ffffff">
+<center><b>Testing</b></center>
+</font></td></tr></tbody></table>
+
+</p><p><b>Clients.</b>&nbsp;
+You may use the following client programs to test and debug your code.
+
+</p><p>
+</p><ul>
+<p></p><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/PrintEnergy.java">PrintEnergy.java</a>
+computes and prints a table of the energy of an image with filename provided on the command line. 
+
+<p></p></li><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/ShowEnergy.java">ShowEnergy.java</a>
+computes and draws the energy of an image with filename provided on the command line.
+
+<p></p></li><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/ShowSeams.java">ShowSeams.java</a>
+computes the horizontal seam, vertical seam, and energy of the image with filename
+provided on the command line. 
+Draws the horizontal and vertical seams over the energy.
+
+<p></p></li><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/PrintSeams.java">PrintSeams.java</a>
+computes the horizontal seam, vertical seam, and energy of the image with
+filename provided on the command line. 
+Prints the horizontal and vertical seams as annotations to the energy.
+Many of the small input files provided also 
+have a <code>printseams.txt</code> file 
+(such as <a href="http://coursera.cs.princeton.edu/algs4/testing/seam/5x6.printseams.txt">5x6.printseams.txt</a>), so you can 
+compare your results to the correct solution.
+
+<p></p></li><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/ResizeDemo.java">ResizeDemo.java</a>
+uses your seam removal methods to resize the image.
+The command line arguments are filename, <em>W</em> and <em>H</em> where
+<em>W</em> is the number of columns and <em>H</em> is the number rows to 
+remove from the image specified.
+
+<p></p></li><li>
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam/SCUtility.java">SCUtility.java</a>
+is a utility program used by most of the above clients.
+
+
+
+</li></ul>
+<p><b>Sample input files.</b>
+&nbsp;
+The directory <a href="http://coursera.cs.princeton.edu/algs4/testing/seam">seam</a> contains
+the client programs above along with some sample image files.
+For convenience,
+<a href="http://coursera.cs.princeton.edu/algs4/testing/seam-testing.zip">seam-test.zip</a>
+contains all of these files bundled together.
+You can also use your own image files for testing and entertainment.
+
+</p><p>
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr align="left">
+<td bgcolor="000000">
+<font size="+0" face="helvetica" color="ffffff">
+<center><b>Possible Progress Steps</b></center>
+</font></td></tr></tbody></table>
+</p><p>
+
+These are purely suggestions for how you might make progress.  You do
+not have to follow these steps.
+
+</p><ol>
+
+
+<p></p><li>Start by writing the constructor as well as <code>picture()</code>, <code>width()</code> and <code>height()</code>.
+These should be very easy. 
+
+<p></p></li><li>From there, write <code>energy()</code>.
+Calculating Δ<sub><em>x</em></sub><sup>2</sup> and Δ<sub><em>y</em></sub><sup>2</sup>
+are very similar. Using two private methods will keep your code simple.
+To test that your code works,
+use the client <code>PrintEnergy</code> described in the testing section above.
+
+<p></p></li><li> To write <code>findVerticalSeam()</code>, you will want to first make 
+sure you understand the topologial sort algorithm for computing a shortest path in a DAG.
+Do <em>not</em> create an <code>EdgeWeightedDigraph</code>. Instead construct a 2d 
+energy array using the <code>energy()</code> method that you have already written.
+Your algorithm can traverse this matrix 
+treating some select entries as reachable from <code>(x, y)</code> to calculate where the seam is located. 
+To test that your code works,
+use the client <code>PrintSeams</code> described in the testing section above.
+
+
+<p></p></li><li> To write <code>findHorizontalSeam()</code>,
+transpose the image, call <code>findVerticalSeam()</code>,
+and transpose it back.
+
+<p></p></li><li>Now implement <code>removeVerticalSeam()</code>. 
+Typically, this method will be called with the output of <code>findVerticalSeam()</code>,
+but be sure that they work for any seam.
+To test that your code words, use the client <code>ResizeDemo</code> described in the testing section above.
+
+<p></p></li><li> To write <code>removeHorizontalSeam()</code>, transpose the image, call <code>removeVerticalSeam()</code>,
+and transpose it back.
+
+
+</li></ol>
+
+
+<p>
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr align="left">
+<td bgcolor="000000">
+<font size="+0" face="helvetica" color="ffffff">
+<center><b>Optimizations</b></center>
+</font></td></tr></tbody></table>
+</p><p>
+
+</p><ol>
+
+<p></p><li>
+There is no need to create a new <code>Picture</code> object after removing a seam
+—instead, you can maintain the color information in a 2D array of integers.
+That is, you can defer creating a <code>Picture</code> object until
+required to do (when the client calls <code>picture()</code>).
+Since <code>Picture</code> objects are relatively expensive, this will speed
+things up.
+
+<p></p></li><li>
+Reuse the energy array and shift array elements to plug the holes left
+from the seam that was just removed.
+You will need to recalculate the energies for the pixels
+along the seam that was just removed, but no other energies will change.
+
+<p></p></li><li>
+Don't explicitly transpose the <code>Picture</code> until you need to do so.
+For example, if you perform a sequence of 50 consecutive horizontal seam
+removals, you should need only two transposes (not 100).
+
+<p></p></li><li>
+Is it faster to traverse the energy matrix in row-major order or column-major order?
+<em>Hint</em>: Recall that in Java a "2D array" is really an array of arrays.
+
+<p></p></li><li>
+Consider using <code>System.arraycopy()</code> to shift elements within an array.
+
+
+</li></ol>
+
+
+
+<p>
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr align="left">
+<td bgcolor="000000">
+<font size="+0" face="helvetica" color="ffffff">
+<center><b>Challenge for the bored</b></center>
+</font></td></tr></tbody></table>
+</p><p>
+
+</p><ol>
+<p></p><li>
+Your <code>energy()</code> method implemented the dual gradient energy function.
+Try out other energy functions. 
+
+<p></p></li><li> Implement an interactive object-removal feature: The user highlights an area of the
+image, and that portion of the image is forced to zero energy.
+Rows and columns are then successively removed until every pixel in
+that zero-energy region has been removed.
+</li></ol>
+
+</body></html>

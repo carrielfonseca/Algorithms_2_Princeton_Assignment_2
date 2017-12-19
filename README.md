@@ -1,0 +1,2 @@
+# Algorithms_2_Princeton_Assignment_2
+Seam Carving

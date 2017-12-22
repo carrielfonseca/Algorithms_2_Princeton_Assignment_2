@@ -48,6 +48,10 @@ public class SeamCarver {
 		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
 		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
 	}
+	
+	private int energyOfPixel(int row, int col) {		
+		return squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col);
+	}
 
 	public static void main(String[] args) {	
 		

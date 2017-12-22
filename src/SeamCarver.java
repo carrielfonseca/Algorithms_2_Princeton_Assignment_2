@@ -10,8 +10,8 @@ public class SeamCarver {
 
 	public static void main(String[] args) {	
 		
-		
-		Picture picture = new Picture("C:/Users/ffonseca/Desktop/Fabio/HJoceanSmall.png");
+		//put file in root directory of the project root directory here
+		Picture picture = new Picture("HJoceanSmall.png"); 
 		SeamCarver seamCarver = new SeamCarver(picture);
 		
 		picture.show();

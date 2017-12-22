@@ -3,9 +3,20 @@ import edu.princeton.cs.algs4.Picture;
 public class SeamCarver {
 	
 	private Picture picture;
+	private int widht, height;	
 	
 	public SeamCarver(Picture picture) {
 		this.picture = picture;
+		widht = picture.width();
+		height =  picture.height();
+	}
+	
+	public int widht() {
+		return widht;
+	}
+	
+	public int height() {
+		return height;
 	}
 
 	public static void main(String[] args) {	

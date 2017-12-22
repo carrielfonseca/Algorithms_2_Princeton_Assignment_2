@@ -46,7 +46,11 @@ public class SeamCarver {
 	
 	public int height() {
 		return height;
-	}	
+	}
+	
+	public  double energy(int x, int y)   {            // energy of pixel at column x and row y
+		return energy[y][x];
+	}
 	
 	private int squareOfTheXGradient(int row, int col) {
 		int deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();

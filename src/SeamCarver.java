@@ -10,7 +10,7 @@ public class SeamCarver {
 	private int[][] energy;  //the energy represents a distance	
 	
 	public SeamCarver(Picture picture) {
-		this.picture = picture;
+		this.picture = new Picture(picture); //makes a Deep Copy of the original Picture passed in the constructor
 		widht = picture.width();
 		height =  picture.height();
 		matrixOfPixels = new Color[widht][height];

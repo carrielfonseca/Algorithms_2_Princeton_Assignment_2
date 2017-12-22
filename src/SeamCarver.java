@@ -16,7 +16,6 @@ public class SeamCarver {
 		matrixOfPixels = new Color[widht][height];
 		energy = new int[widht][height];
 		// fills out Pixel Matrix with each Pixel being a Color object
-		// Although Picture Matrix is upside down, calculations will not be different
 		for (int i = 0; i < widht ; i++) {
 			for (int j = 0; j < height; j++) {
 				matrixOfPixels[i][j] = picture.get(j, i);	

@@ -13,6 +13,7 @@ public class SeamCarver {
 		this.picture = picture;
 		widht = picture.width();
 		height =  picture.height();
+		// Although Picure Matrix is upside down, calculations will not be different
 		for (int i = 0; i < widht ; i++) {
 			for (int j = 0; j < height; j++) {
 				matrixOfPixels[i][j] = picture.get(j, i);	

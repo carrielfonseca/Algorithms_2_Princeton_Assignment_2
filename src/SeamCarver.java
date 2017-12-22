@@ -25,7 +25,12 @@ public class SeamCarver {
 		// fills out energy matrix 
 		for (int i = 0; i < widht ; i++) {
 			for (int j = 0; j < height; j++) {
-				energy[i][j] = energyOfPixel(i, j);	
+				if (i == 0 || j == 0 ) {
+					energy[i][j] = 1000;
+				}
+				else {
+					energy[i][j] = energyOfPixel(i, j);	
+				}
 			}			
 		}
 	}

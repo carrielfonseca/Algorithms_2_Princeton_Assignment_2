@@ -53,11 +53,23 @@ public class SeamCarver {
 	}
 	
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
-		for (int i = 0; i < (height()-1); i++) { // last row cannot be relaxed
+		double lowestDistance = Double.MAX_VALUE;
+		int[] verticalSeam = new int[height()];
+		//first relaxes all possible vertices 
+		for (int i = 0; i < (height()-1); i++) {       // last row cannot be relaxed
 			for (int j = 0; j < width(); j++) {
 				relaxVertex(i,j);
 			}
 		}
+		//sweeps the last row to find the lowest distance and get the col of the lowest distance
+		for (int j = 0; j < width(); j++) {
+			if (lowestDistance > distanceTo[height()][j]) {
+				lowestDistance = distanceTo[height()][j];
+				verticalSeam[height()-1] = j;
+			}			
+		}
+		
+		
 		return null;
 	}
 	

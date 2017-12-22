@@ -38,6 +38,16 @@ public class SeamCarver {
 		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
 		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
 	}
+	
+	private int squareOfTheYGradient(int row, int col) {
+		int deltaRed = matrixOfPixels[row-1][col].getRed() - matrixOfPixels[row+1][col].getRed();
+		int deltaGreen = matrixOfPixels[row-1][col].getGreen() - matrixOfPixels[row+1][col].getGreen();
+		int deltaBlue = matrixOfPixels[row-1][col].getBlue() - matrixOfPixels[row+1][col].getBlue();
+		int deltaRedSquared = (int) Math.pow(deltaRed,2);
+		int deltaGreenSquared = (int) Math.pow(deltaGreen,2);
+		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
+		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
+	}
 
 	public static void main(String[] args) {	
 		

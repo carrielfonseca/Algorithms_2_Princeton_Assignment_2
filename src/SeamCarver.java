@@ -7,8 +7,8 @@ public class SeamCarver {
 	private Picture picture;
 	private int widht, height;
 	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
-	private int[][] energy;  //the energy of each pixel
-	private int[][] distanceTo; //distance to vertex i, j
+	private double[][] energy;  //the energy of each pixel
+	private double[][] distanceTo; //distance to vertex i, j
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i01)
 	
 	public SeamCarver(Picture picture) {
@@ -16,8 +16,8 @@ public class SeamCarver {
 		widht = picture.width();
 		height =  picture.height();
 		matrixOfPixels = new Color[widht][height];
-		energy = new int[widht][height];
-		distanceTo = new int[widht][height];
+		energy = new double[widht][height];
+		distanceTo = new double[widht][height];
 		colTo = new int[widht][height]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
 		for (int i = 0; i < widht ; i++) {
@@ -30,11 +30,11 @@ public class SeamCarver {
 			for (int j = 0; j < height; j++) {
 				if (i == 0 || j == 0 ) {
 					energy[i][j] = 1000;
-					distanceTo[i][j] = Integer.MAX_VALUE;
+					distanceTo[i][j] = Double.MAX_VALUE;
 				}
 				else {
 					energy[i][j] = energyOfPixel(i, j);	
-					distanceTo[i][j] = Integer.MAX_VALUE;
+					distanceTo[i][j] = Double.MAX_VALUE;
 				}
 			}			
 		}

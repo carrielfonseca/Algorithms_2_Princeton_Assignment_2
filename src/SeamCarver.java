@@ -7,17 +7,25 @@ public class SeamCarver {
 	private Picture picture;
 	private int widht, height;
 	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
-	private int[][] energy; //the energy represents a distance	
+	private int[][] energy;  //the energy represents a distance	
 	
 	public SeamCarver(Picture picture) {
 		this.picture = picture;
 		widht = picture.width();
 		height =  picture.height();
 		matrixOfPixels = new Color[widht][height];
-		// Although Picure Matrix is upside down, calculations will not be different
+		energy = new int[widht][height];
+		// fills out Pixel Matrix with each Pixel being a Color object
+		// Although Picture Matrix is upside down, calculations will not be different
 		for (int i = 0; i < widht ; i++) {
 			for (int j = 0; j < height; j++) {
 				matrixOfPixels[i][j] = picture.get(j, i);	
+			}			
+		}
+		// fills out energy matrix 
+		for (int i = 0; i < widht ; i++) {
+			for (int j = 0; j < height; j++) {
+				energy[i][j] = energyOfPixel(i, j);	
 			}			
 		}
 	}

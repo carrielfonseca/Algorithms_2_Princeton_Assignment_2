@@ -27,13 +27,17 @@ public class SeamCarver {
 	
 	public int height() {
 		return height;
+	}	
+	
+	private int squareOfTheXGradient(int row, int col) {
+		int deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
+		int deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();
+		int deltaBlue = matrixOfPixels[row][col-1].getBlue() - matrixOfPixels[row][col+1].getBlue();
+		int deltaRedSquared = (int) Math.pow(deltaRed,2);
+		int deltaGreenSquared = (int) Math.pow(deltaGreen,2);
+		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
+		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
 	}
-	
-	
-//	private int squareOfTheXGradient(int row, int col) {
-//		int deltaRedSquared = matrixOfPixels[row][col-1]
-//		return 
-//	}
 
 	public static void main(String[] args) {	
 		

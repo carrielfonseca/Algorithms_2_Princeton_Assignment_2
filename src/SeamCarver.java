@@ -7,7 +7,7 @@ public class SeamCarver {
 	private Picture picture;
 	private int widht, height;
 	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
-	private int[][] energy;  //the energy represents a distance	
+	private int[][] energy;  //the energy of each pixel
 	private int[][] distanceTo; //distance to vertex i, j
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i01)
 	
@@ -68,6 +68,18 @@ public class SeamCarver {
 	
 	private int energyOfPixel(int row, int col) {		
 		return squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col);
+	}
+	
+	private void relaxVertex(int i, int j) {
+		if (distanceTo[i+1][j-1] > distanceTo[i][j] + energy[i+1][j-1])   {
+			distanceTo[i+1][j-1] = distanceTo[i][j] + energy[i+1][j-1];
+		}
+		if (distanceTo[i+1][j] > distanceTo[i][j] + energy[i+1][j])   {
+			distanceTo[i+1][j] = distanceTo[i][j] + energy[i+1][j];
+		}
+		if (distanceTo[i+1][j+1] > distanceTo[i][j] + energy[i+1][j+1])   {
+			distanceTo[i+1][j+1] = distanceTo[i][j] + energy[i+1][j+1];
+		}
 	}
 
 	public static void main(String[] args) {	

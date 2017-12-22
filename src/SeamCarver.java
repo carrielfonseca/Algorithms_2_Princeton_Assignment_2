@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.Picture;
 public class SeamCarver {
 	
 	private Picture picture;
-	private int widht, height;
+	private int width, height;
 	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
 	private double[][] energy;  //the energy of each pixel
 	private double[][] distanceTo; //distance to vertex i, j
@@ -13,20 +13,20 @@ public class SeamCarver {
 	
 	public SeamCarver(Picture picture) {
 		this.picture = new Picture(picture); //makes a Deep Copy of the original Picture passed in the constructor
-		widht = picture.width();
+		width = picture.width();
 		height =  picture.height();
-		matrixOfPixels = new Color[widht][height];
-		energy = new double[widht][height];
-		distanceTo = new double[widht][height];
-		colTo = new int[widht][height]; 
+		matrixOfPixels = new Color[width][height];
+		energy = new double[width][height];
+		distanceTo = new double[width][height];
+		colTo = new int[width][height]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
-		for (int i = 0; i < widht ; i++) {
+		for (int i = 0; i < width ; i++) {
 			for (int j = 0; j < height; j++) {
 				matrixOfPixels[i][j] = picture.get(j, i);	
 			}			
 		}
 		// fills out energy and distance matrix
-		for (int i = 0; i < widht ; i++) {
+		for (int i = 0; i < width ; i++) {
 			for (int j = 0; j < height; j++) {
 				if (i == 0 || j == 0 ) {
 					energy[i][j] = 1000;
@@ -40,8 +40,8 @@ public class SeamCarver {
 		}
 	}
 	
-	public int widht() {
-		return widht;
+	public int width() {
+		return width;
 	}
 	
 	public int height() {
@@ -50,6 +50,15 @@ public class SeamCarver {
 	
 	public  double energy(int x, int y)   {            // energy of pixel at column x and row y
 		return energy[y][x];
+	}
+	
+	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
+		for (int i = 0; i < (height()-1); i++) { // last row cannot be relaxed
+			for (int j = 0; j < width(); j++) {
+				relaxVertex(i,j);
+			}
+		}
+		return null;
 	}
 	
 	private int squareOfTheXGradient(int row, int col) {

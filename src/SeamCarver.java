@@ -25,14 +25,16 @@ public class SeamCarver {
 				matrixOfPixels[i][j] = picture.get(j, i);	
 			}			
 		}
-		// fills out energy matrix 
+		// fills out energy and distance matrix
 		for (int i = 0; i < widht ; i++) {
 			for (int j = 0; j < height; j++) {
 				if (i == 0 || j == 0 ) {
 					energy[i][j] = 1000;
+					distanceTo[i][j] = Integer.MAX_VALUE;
 				}
 				else {
 					energy[i][j] = energyOfPixel(i, j);	
+					distanceTo[i][j] = Integer.MAX_VALUE;
 				}
 			}			
 		}

@@ -68,9 +68,13 @@ public class SeamCarver {
 				verticalSeam[height()-1] = j;
 			}			
 		}
-		
-		
-		return null;
+		//iterates from the bottom coordinate up to find the verticalSeam
+		int currentIndex = verticalSeam[height()-1]; 
+		for (int i = (height()-1); i > 0; i--) {
+			verticalSeam[i-1] = colTo[i][currentIndex];
+			currentIndex = verticalSeam[i-1];
+		}	
+		return verticalSeam;
 	}
 	
 	private int squareOfTheXGradient(int row, int col) {

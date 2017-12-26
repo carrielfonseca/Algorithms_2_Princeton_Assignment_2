@@ -12,6 +12,7 @@ public class SeamCarver {
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i01)
 	
 	public SeamCarver(Picture picture) {
+		if (picture == null) throw new java.lang.IllegalArgumentException("null argument");
 		this.picture = new Picture(picture); //makes a Deep Copy of the original Picture passed in the constructor
 		width = picture.width();
 		height =  picture.height();
@@ -110,6 +111,7 @@ public class SeamCarver {
 	}
 	
 	public void removeVerticalSeam(int[] seam) {
+		if (seam == null) throw new java.lang.IllegalArgumentException("null argument");
 		for (int i = 0; i < height(); i++) {
 			for (int j = seam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
@@ -121,6 +123,7 @@ public class SeamCarver {
 	}
 	
 	public void removeHorizontalSeam(int[] seam) {
+		if (seam == null) throw new java.lang.IllegalArgumentException("null argument");
 		for (int j = 0; j < width(); j++) {
 			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];

@@ -78,7 +78,7 @@ public class SeamCarver {
 		return verticalSeam;
 	}
 	
-	//horizontalSeam transposes the relevant matrices call findVerticalSeam and transposes them back
+	//horizontalSeam transposes the relevant matrices, call findVerticalSeam, and transposes them back
 	public int[] findHorizontalSeam() {
 		//transposes the matrices
 		int [] horizontalSeam = new int[width()];
@@ -110,27 +110,27 @@ public class SeamCarver {
 		caculateEnergyMatrix();
 	}
 	
-	private int squareOfTheXGradient(int row, int col) {
-		int deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
-		int deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();
-		int deltaBlue = matrixOfPixels[row][col-1].getBlue() - matrixOfPixels[row][col+1].getBlue();
-		int deltaRedSquared = (int) Math.pow(deltaRed,2);
-		int deltaGreenSquared = (int) Math.pow(deltaGreen,2);
-		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
+	private double squareOfTheXGradient(int row, int col) {
+		double deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
+		double deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();
+		double deltaBlue = matrixOfPixels[row][col-1].getBlue() - matrixOfPixels[row][col+1].getBlue();
+		double deltaRedSquared = Math.pow(deltaRed,2);
+		double deltaGreenSquared = Math.pow(deltaGreen,2);
+		double deltaBlueSquared = Math.pow(deltaBlue,2);
 		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
 	}
 	
-	private int squareOfTheYGradient(int row, int col) {
-		int deltaRed = matrixOfPixels[row-1][col].getRed() - matrixOfPixels[row+1][col].getRed();
-		int deltaGreen = matrixOfPixels[row-1][col].getGreen() - matrixOfPixels[row+1][col].getGreen();
-		int deltaBlue = matrixOfPixels[row-1][col].getBlue() - matrixOfPixels[row+1][col].getBlue();
-		int deltaRedSquared = (int) Math.pow(deltaRed,2);
-		int deltaGreenSquared = (int) Math.pow(deltaGreen,2);
-		int deltaBlueSquared = (int) Math.pow(deltaBlue,2);
+	private double squareOfTheYGradient(int row, int col) {
+		double deltaRed = matrixOfPixels[row-1][col].getRed() - matrixOfPixels[row+1][col].getRed();
+		double deltaGreen = matrixOfPixels[row-1][col].getGreen() - matrixOfPixels[row+1][col].getGreen();
+		double deltaBlue = matrixOfPixels[row-1][col].getBlue() - matrixOfPixels[row+1][col].getBlue();
+		double deltaRedSquared = Math.pow(deltaRed,2);
+		double deltaGreenSquared = Math.pow(deltaGreen,2);
+		double deltaBlueSquared = Math.pow(deltaBlue,2);
 		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
 	}
 	
-	private int energyOfPixel(int row, int col) {		
+	private double energyOfPixel(int row, int col) {		
 		return squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col);
 	}
 	

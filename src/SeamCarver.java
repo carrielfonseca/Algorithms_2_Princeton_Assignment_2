@@ -110,6 +110,17 @@ public class SeamCarver {
 		caculateEnergyMatrix();
 	}
 	
+	public void removeHorizontalSeam(int[] horizontalSeam) {
+		for (int j = 0; j < width(); j++) {
+			for (int i = horizontalSeam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
+				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
+			}
+			matrixOfPixels[j][(height()-1)] = null; //no loitering
+		}		
+		height = height - 1;
+		caculateEnergyMatrix();
+	}
+	
 	private double squareOfTheXGradient(int row, int col) {
 		double deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
 		double deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();

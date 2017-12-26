@@ -16,19 +16,19 @@ public class SeamCarver {
 		this.picture = new Picture(picture); //makes a Deep Copy of the original Picture passed in the constructor
 		width = picture.width();
 		height =  picture.height();
-		matrixOfPixels = new Color[width][height];
-		energy = new double[width][height];
-		distanceTo = new double[width][height];
-		colTo = new int[width][height]; 
+		matrixOfPixels = new Color[height][width];
+		energy = new double[height][width];
+		distanceTo = new double[height][width];
+		colTo = new int[height][width]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
-		for (int i = 0; i < width ; i++) {
-			for (int j = 0; j < height; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width ; j++) {
 				matrixOfPixels[i][j] = picture.get(j, i);	
 			}			
 		}
 		// fills out energy and distance matrix
-		for (int i = 0; i < width ; i++) {
-			for (int j = 0; j < height; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				if (i == 0 || j == 0 ) {
 					energy[i][j] = 1000;
 					distanceTo[i][j] = Double.MAX_VALUE;
@@ -42,9 +42,9 @@ public class SeamCarver {
 	}
 	
 	public Picture picture() {                 // current picture
-		picture = new Picture(width(), height());
-		for (int i = 0; i < width ; i++) {
-			for (int j = 0; j < height; j++) {
+		picture = new Picture(height(), width());
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width ; j++) {
 				picture.set(j, i, matrixOfPixels[i][j]);
 			}
 		}
@@ -204,8 +204,8 @@ public class SeamCarver {
 	
 	// calculate energy	
 	private void caculateEnergyMatrix() {
-		for (int i = 0; i < width ; i++) {			
-			for (int j = 0; j < height; j++) {
+		for (int i = 0; i < height ; i++) {			
+			for (int j = 0; j < width; j++) {
 				if (i == 0 || j == 0 ) {
 					energy[i][j] = 1000;
 				}

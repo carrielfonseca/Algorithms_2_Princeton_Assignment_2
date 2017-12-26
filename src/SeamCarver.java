@@ -114,6 +114,7 @@ public class SeamCarver {
 		if (seam == null) throw new java.lang.IllegalArgumentException("null argument");
 		if (seam.length != height()) throw new java.lang.IllegalArgumentException("seam does not have the same height");
 		if (!verifyIfSeamIsValid(seam, width()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
+		if (width() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal width");
 		for (int i = 0; i < height(); i++) {
 			for (int j = seam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
@@ -128,6 +129,7 @@ public class SeamCarver {
 		if (seam == null) throw new java.lang.IllegalArgumentException("null argument");
 		if (seam.length != width()) throw new java.lang.IllegalArgumentException("seam does not have the same width");
 		if (!verifyIfSeamIsValid(seam, height()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
+		if (height() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal height");
 		for (int j = 0; j < width(); j++) {
 			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];

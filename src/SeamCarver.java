@@ -99,6 +99,17 @@ public class SeamCarver {
 		return horizontalSeam; 	
 	}
 	
+	public void removeVerticalSeam(int[] verticalSeam) {
+		for (int i = 0; i < height(); i++) {
+			for (int j = verticalSeam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
+				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
+			}
+			matrixOfPixels[i][(width()-1)] = null; //no loitering
+		}		
+		width = width - 1;
+		caculateEnergyMatrix();
+	}
+	
 	private int squareOfTheXGradient(int row, int col) {
 		int deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
 		int deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();
@@ -159,6 +170,20 @@ public class SeamCarver {
 			}			
 		}
 		return matrix;
+	}
+	
+	// calculate energy	
+	private void caculateEnergyMatrix() {
+		for (int i = 0; i < width ; i++) {			
+			for (int j = 0; j < height; j++) {
+				if (i == 0 || j == 0 ) {
+					energy[i][j] = 1000;
+				}
+				else {
+					energy[i][j] = energyOfPixel(i, j);	
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {	

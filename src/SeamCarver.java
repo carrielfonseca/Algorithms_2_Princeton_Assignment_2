@@ -54,6 +54,7 @@ public class SeamCarver {
 	
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.MAX_VALUE;
+		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
 		int[] verticalSeam = new int[height()];
 		//first relaxes all possible vertices to get the distance and colTo matrices
 		for (int i = 0; i < (height()-1); i++) {       // last row cannot be relaxed
@@ -152,6 +153,15 @@ public class SeamCarver {
 			}
 		}
 		return matrixTransposed;
+	}
+	
+	private double[][] setCoordinatesToInfinity(double[][] matrix) {
+		for (int i = 0; i < matrix.length ; i++) {
+			for (int j = 0; j < matrix[0].length ; j++) {
+				distanceTo[i][j] = Double.MAX_VALUE;
+			}			
+		}
+		return matrix;
 	}
 
 	public static void main(String[] args) {	

@@ -131,7 +131,7 @@ public class SeamCarver {
 	}
 	
 	private double energyOfPixel(int row, int col) {		
-		return squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col);
+		return Math.sqrt(squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col));
 	}
 	
 	private void relaxVertex(int i, int j) {

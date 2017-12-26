@@ -99,9 +99,9 @@ public class SeamCarver {
 		return horizontalSeam; 	
 	}
 	
-	public void removeVerticalSeam(int[] verticalSeam) {
+	public void removeVerticalSeam(int[] seam) {
 		for (int i = 0; i < height(); i++) {
-			for (int j = verticalSeam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
+			for (int j = seam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
 			}
 			matrixOfPixels[i][(width()-1)] = null; //no loitering
@@ -110,9 +110,9 @@ public class SeamCarver {
 		caculateEnergyMatrix();
 	}
 	
-	public void removeHorizontalSeam(int[] horizontalSeam) {
+	public void removeHorizontalSeam(int[] seam) {
 		for (int j = 0; j < width(); j++) {
-			for (int i = horizontalSeam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
+			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
 			}
 			matrixOfPixels[j][(height()-1)] = null; //no loitering

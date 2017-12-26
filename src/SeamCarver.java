@@ -64,8 +64,8 @@ public class SeamCarver {
 		}
 		//sweeps the last row to find the lowest distance and get the col of the lowest distance
 		for (int j = 0; j < width(); j++) {
-			if (lowestDistance > distanceTo[height()][j]) {
-				lowestDistance = distanceTo[height()][j];
+			if (lowestDistance > distanceTo[height()-1][j]) {
+				lowestDistance = distanceTo[height()-1][j];
 				verticalSeam[height()-1] = j;
 			}			
 		}

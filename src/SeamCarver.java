@@ -96,10 +96,7 @@ public class SeamCarver {
 		width = height;
 		height = widthTemp;
 		
-		return horizontalSeam; 
-				
-		
-		
+		return horizontalSeam; 	
 	}
 	
 	private int squareOfTheXGradient(int row, int col) {

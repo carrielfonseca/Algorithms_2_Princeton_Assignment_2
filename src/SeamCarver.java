@@ -77,6 +77,30 @@ public class SeamCarver {
 		return verticalSeam;
 	}
 	
+	//horizontalSeam transposes the relevant matrices call findVerticalSeam and transposes them back
+	public int[] findHorizontalSeam() {
+		//transposes the matrices
+		int [] horizontalSeam = new int[width()];
+		energy = transposeMatrix(energy);
+		distanceTo = transposeMatrix(distanceTo);
+	    int widthTemp = width;
+		width = height;
+		height = widthTemp;
+		//call verticalSeam
+		horizontalSeam = findVerticalSeam();
+		//transposes the matrices back back
+		energy = transposeMatrix(energy);
+		distanceTo = transposeMatrix(distanceTo);
+	    widthTemp = width;
+		width = height;
+		height = widthTemp;
+		
+		return horizontalSeam; 
+				
+		
+		
+	}
+	
 	private int squareOfTheXGradient(int row, int col) {
 		int deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
 		int deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();

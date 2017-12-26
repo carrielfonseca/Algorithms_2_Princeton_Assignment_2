@@ -55,7 +55,7 @@ public class SeamCarver {
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.MAX_VALUE;
 		int[] verticalSeam = new int[height()];
-		//first relaxes all possible vertices 
+		//first relaxes all possible vertices to get the distance and colTo matrices
 		for (int i = 0; i < (height()-1); i++) {       // last row cannot be relaxed
 			for (int j = 0; j < width(); j++) {
 				relaxVertex(i,j);
@@ -115,16 +115,34 @@ public class SeamCarver {
 			colTo[i+1][j+1] = j;
 		}
 	}
+	
+	//transpose a matrix
+	private double[][] transposeMatrix(double[][] matrix) {
+		double[][] matrixTransposed;
+		int numberOfRows = matrix.length;
+		int numberOfColumns = matrix[0].length;
+		matrixTransposed = new double[numberOfColumns][numberOfRows];
+		for (int i = 0;i < numberOfRows; i++) {
+			for (int j = 0; j < numberOfColumns;j++) {
+				matrixTransposed[j][i] = matrix[i][j];
+			}
+		}
+		return matrixTransposed;
+	}
 
 	public static void main(String[] args) {	
 		
 		//put file in root directory of the project root directory here
-		Picture picture = new Picture("HJoceanSmall.png"); 
-		SeamCarver seamCarver = new SeamCarver(picture);
-		
-		picture.show();
-		System.out.println(picture.width());
-		System.out.println(picture.height());
+//		Picture picture = new Picture("HJoceanSmall.png"); 
+//		SeamCarver seamCarver = new SeamCarver(picture);
+//		
+//		picture.show();
+//		System.out.println(picture.width());
+//		System.out.println(picture.height());
+//		
+		int[][] arr = new int[10][15];
+		System.out.println(arr.length);
+		System.out.println(arr[0].length);
 		
 		
 

@@ -211,6 +211,22 @@ public class SeamCarver {
 			}
 		}
 	}
+	
+	private boolean verifyIfSeamIsValid(int[] seam, int upperBoundIndex) {
+		boolean isValid = true;
+		int priorIndex = seam[0];
+		for(int i=0; i < seam.length; i++) {
+			if (seam[i] < 0 || seam[i] > upperBoundIndex) {
+				isValid = false;
+				break;
+			} else if (seam[i] > (priorIndex+1) || seam[i] < (priorIndex-1)) {
+				isValid = false;
+				break;
+			}
+			priorIndex = seam[i];
+		}
+		return isValid;
+	}
 
 	public static void main(String[] args) {	
 		

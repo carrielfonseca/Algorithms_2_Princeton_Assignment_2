@@ -80,7 +80,7 @@ public class SeamCarver {
 				verticalSeam[height()-1] = j;
 			}			
 		}
-		//iterates from the bottom coordinate up to find the verticalSeam
+		//iterates from the up coordinate down to find the verticalSeam
 		int currentIndex = verticalSeam[height()-1]; 
 		for (int i = (height()-1); i > 0; i--) {
 			verticalSeam[i-1] = colTo[i][currentIndex];

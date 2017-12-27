@@ -31,11 +31,11 @@ public class SeamCarver {
 			for (int j = 0; j < width; j++) {
 				if (i == 0 || i == (height-1) ||j == 0 || j == (width-1)) { //corner cases
 					energy[i][j] = 1000;
-					distanceTo[i][j] = Double.MAX_VALUE;
+					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 				else {
 					energy[i][j] = energyOfPixel(i, j);	
-					distanceTo[i][j] = Double.MAX_VALUE;
+					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 			}			
 		}
@@ -64,7 +64,7 @@ public class SeamCarver {
 	}
 	
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
-		double lowestDistance = Double.MAX_VALUE;
+		double lowestDistance = Double.POSITIVE_INFINITY;
 		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
 		int[] verticalSeam = new int[height];
 		//first relaxes all possible vertices to get the distance and colTo matrices
@@ -212,7 +212,7 @@ public class SeamCarver {
 	private double[][] setCoordinatesToInfinity(double[][] matrix) {
 		for (int i = 0; i < matrix.length ; i++) {
 			for (int j = 0; j < matrix[0].length ; j++) {
-				distanceTo[i][j] = Double.MAX_VALUE;
+				distanceTo[i][j] = Double.POSITIVE_INFINITY;
 			}			
 		}
 		return matrix;
@@ -258,9 +258,16 @@ public class SeamCarver {
 //		System.out.println(picture.width());
 //		System.out.println(picture.height());
 //		
-		int[][] arr = new int[10][15];
-		System.out.println(arr.length);
-		System.out.println(arr[0].length);
+//		int[][] arr = new int[10][15];
+//		System.out.println(arr.length);
+//		System.out.println(arr[0].length);
+		
+		int x = 10;
+		int y = 20;
+		int z = 30;
+		if (z > x + y) {
+			System.out.println("Hello");
+		}
 		
 		
 

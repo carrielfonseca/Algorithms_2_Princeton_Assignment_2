@@ -66,18 +66,18 @@ public class SeamCarver {
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.MAX_VALUE;
 		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
-		int[] verticalSeam = new int[height()];
+		int[] verticalSeam = new int[height];
 		//first relaxes all possible vertices to get the distance and colTo matrices
-		for (int i = 0; i < (height()-1); i++) {       // last row cannot be relaxed
-			for (int j = 0; j < width(); j++) {
+		for (int i = 0; i < (height-1); i++) {       // last row cannot be relaxed
+			for (int j = 0; j < width; j++) {
 				relaxVertex(i,j);
 			}
 		}
 		//sweeps the last row to find the lowest distance and get the col of the lowest distance
-		for (int j = 0; j < width(); j++) {
-			if (lowestDistance > distanceTo[height()-1][j]) {
-				lowestDistance = distanceTo[height()-1][j];
-				verticalSeam[height()-1] = j;
+		for (int j = 0; j < width; j++) {
+			if (lowestDistance > distanceTo[height-1][j]) {
+				lowestDistance = distanceTo[height-1][j];
+				verticalSeam[height-1] = j;
 			}			
 		}
 		//iterates from the up coordinate down to find the verticalSeam

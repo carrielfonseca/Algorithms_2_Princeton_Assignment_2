@@ -9,7 +9,7 @@ public class SeamCarver {
 	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
 	private double[][] energy;  //the energy of each pixel
 	private double[][] distanceTo; //distance to vertex i, j
-	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i01)
+	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i-1)
 	
 	public SeamCarver(Picture picture) {
 		if (picture == null) throw new java.lang.IllegalArgumentException("null argument");
@@ -95,6 +95,7 @@ public class SeamCarver {
 		int [] horizontalSeam = new int[width()];
 		energy = transposeMatrix(energy);
 		distanceTo = transposeMatrix(distanceTo);
+		colTo = transposeMatrix((int[][]) colTo);
 	    int widthTemp = width;
 		width = height;
 		height = widthTemp;
@@ -103,6 +104,7 @@ public class SeamCarver {
 		//transposes the matrices back back
 		energy = transposeMatrix(energy);
 		distanceTo = transposeMatrix(distanceTo);
+		colTo = transposeMatrix((int[][]) colTo);
 	    widthTemp = width;
 		width = height;
 		height = widthTemp;
@@ -192,6 +194,20 @@ public class SeamCarver {
 		}
 		return matrixTransposed;
 	}
+	
+	//transpose a matrix
+		private int[][] transposeMatrix(int[][] matrix) {
+			int[][] matrixTransposed;
+			int numberOfRows = matrix.length;
+			int numberOfColumns = matrix[0].length;
+			matrixTransposed = new int[numberOfColumns][numberOfRows];
+			for (int i = 0;i < numberOfRows; i++) {
+				for (int j = 0; j < numberOfColumns;j++) {
+					matrixTransposed[j][i] = matrix[i][j];
+				}
+			}
+			return matrixTransposed;
+		}
 	
 	private double[][] setCoordinatesToInfinity(double[][] matrix) {
 		for (int i = 0; i < matrix.length ; i++) {

@@ -1,6 +1,7 @@
 import java.awt.Color;
 
 import edu.princeton.cs.algs4.Picture;
+import edu.princeton.cs.algs4.StdOut;
 
 public class SeamCarver {
 	
@@ -66,16 +67,14 @@ public class SeamCarver {
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.POSITIVE_INFINITY;
 		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
+		for (int j = 0; j < width; j++) { 
+			distanceTo[0][j] = energy[0][j];
+		}
 		int[] verticalSeam = new int[height];
 		//first relaxes all possible vertices to get the distance and colTo matrices
 		for (int i = 0; i < (height-1); i++) {       // last row cannot be relaxed
 			for (int j = 0; j < width; j++) {
-				if (i == 0) {
-					distanceTo[i][j] = energy[i][j];
-				} else {
-					relaxVertex(i,j);
-				}
-				
+				relaxVertex(i,j);				
 			}
 		}
 		//sweeps the last row to find the lowest distance and get the col of the lowest distance
@@ -267,13 +266,25 @@ public class SeamCarver {
 //		System.out.println(arr.length);
 //		System.out.println(arr[0].length);
 		
-		int x = 10;
-		int y = 20;
-		int z = 30;
-		if (z > x + y) {
-			System.out.println("Hello");
-		}
-		
+		Picture picture = new Picture("6x5.png"); 
+	
+        SeamCarver sc = new SeamCarver(picture);
+        
+        StdOut.printf("Printing distance calculated for each pixel.\n");        
+
+        for (int row = 0; row < sc.height(); row++) {
+            for (int col = 0; col < sc.width(); col++)
+                StdOut.printf("%9.0f ", sc.energy(col, row));
+            StdOut.println();
+        }
+        
+        sc.findVerticalSeam();
+        
+        for (int row = 0; row < sc.height(); row++) {
+            for (int col = 0; col < sc.width(); col++)
+                StdOut.printf("%9.0f ", sc.distanceTo[row][col]);
+            StdOut.println();
+        }
 		
 
 	}

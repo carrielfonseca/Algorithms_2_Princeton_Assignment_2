@@ -95,7 +95,7 @@ public class SeamCarver {
 		int [] horizontalSeam = new int[width()];
 		energy = transposeMatrix(energy);
 		distanceTo = transposeMatrix(distanceTo);
-		colTo = transposeMatrix((int[][]) colTo);
+		colTo = transposeMatrix(colTo);
 	    int widthTemp = width;
 		width = height;
 		height = widthTemp;
@@ -104,7 +104,7 @@ public class SeamCarver {
 		//transposes the matrices back back
 		energy = transposeMatrix(energy);
 		distanceTo = transposeMatrix(distanceTo);
-		colTo = transposeMatrix((int[][]) colTo);
+		colTo = transposeMatrix(colTo);
 	    widthTemp = width;
 		width = height;
 		height = widthTemp;

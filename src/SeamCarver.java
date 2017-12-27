@@ -70,7 +70,12 @@ public class SeamCarver {
 		//first relaxes all possible vertices to get the distance and colTo matrices
 		for (int i = 0; i < (height-1); i++) {       // last row cannot be relaxed
 			for (int j = 0; j < width; j++) {
-				relaxVertex(i,j);
+				if (i == 0) {
+					distanceTo[i][j] = energy[i][j];
+				} else {
+					relaxVertex(i,j);
+				}
+				
 			}
 		}
 		//sweeps the last row to find the lowest distance and get the col of the lowest distance

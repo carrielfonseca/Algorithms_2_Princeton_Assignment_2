@@ -29,7 +29,7 @@ public class SeamCarver {
 		// fills out energy and distance matrix
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if (i == 0 || i == (height-1) ||j == 0 || j == (width-1)) { //corner cases
+				if (i == 0 || i == (height-1) || j == 0 || j == (width-1)) { //corner cases
 					energy[i][j] = 1000;
 					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}

@@ -125,7 +125,7 @@ public class SeamCarver {
 			for (int j = seam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
 			}
-			matrixOfPixels[i][(width()-1)] = null; //no loitering
+			matrixOfPixels[i][(width-1)] = null; //no loitering
 		}		
 		width = width - 1;
 		caculateEnergyMatrix();
@@ -140,7 +140,7 @@ public class SeamCarver {
 			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
 				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
 			}
-			matrixOfPixels[j][(height()-1)] = null; //no loitering
+			matrixOfPixels[(height-1)][j] = null; //no loitering
 		}		
 		height = height - 1;
 		caculateEnergyMatrix();

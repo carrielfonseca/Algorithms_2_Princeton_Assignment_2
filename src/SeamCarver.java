@@ -167,16 +167,16 @@ public class SeamCarver {
 	}
 	
 	private void relaxVertex(int i, int j) {
-		if (j > 0 && distanceTo[i+1][j-1] > distanceTo[i][j] + energy[i+1][j-1])   {
-			distanceTo[i+1][j-1] = distanceTo[i][j] + energy[i+1][j-1];
+		if (j > 0 && distanceTo[i+1][j-1] > (distanceTo[i][j] + energy[i+1][j-1]))   {
+			distanceTo[i+1][j-1] = (distanceTo[i][j] + energy[i+1][j-1]);
 			colTo[i+1][j-1] = j;
 		}
-		if (distanceTo[i+1][j] > distanceTo[i][j] + energy[i+1][j])   {
-			distanceTo[i+1][j] = distanceTo[i][j] + energy[i+1][j];
+		if (distanceTo[i+1][j] > (distanceTo[i][j] + energy[i+1][j]))  {
+			distanceTo[i+1][j] = (distanceTo[i][j] + energy[i+1][j]);
 			colTo[i+1][j] = j;
 		}
 		if (j < (width()-1) && distanceTo[i+1][j+1] > distanceTo[i][j] + energy[i+1][j+1])   {
-			distanceTo[i+1][j+1] = distanceTo[i][j] + energy[i+1][j+1];
+			distanceTo[i+1][j+1] = (distanceTo[i][j] + energy[i+1][j+1]);
 			colTo[i+1][j+1] = j;
 		}
 	}

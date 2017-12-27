@@ -17,7 +17,7 @@ public class PrintEnergy {
     public static void main(String[] args) {
        // Picture picture = new Picture(args[0]);  //original art of the class
 		//put file in root directory of the project root directory here
-		Picture picture = new Picture("HJoceanSmall.png"); 
+		Picture picture = new Picture("5x6.png"); 
 		
         StdOut.printf("image is %d pixels wide by %d pixels high.\n", picture.width(), picture.height());
         

@@ -43,7 +43,7 @@ public class SeamCarver {
 	}
 	
 	public Picture picture() {                 // current picture
-		picture = new Picture(height(), width());
+		picture = new Picture(width, height);
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width ; j++) {
 				picture.set(j, i, matrixOfPixels[i][j]);

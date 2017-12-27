@@ -138,7 +138,7 @@ public class SeamCarver {
 		if (height() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal height");
 		for (int j = 0; j < width(); j++) {
 			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
-				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
+				matrixOfPixels[i][j] = matrixOfPixels[i+1][j];
 			}
 			matrixOfPixels[(height-1)][j] = null; //no loitering
 		}		

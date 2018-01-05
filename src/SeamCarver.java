@@ -8,7 +8,7 @@ public class SeamCarver {
 	private Picture picture;
 	private int width, height;
 	private int[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
-	private double[][] energy;  //the energy of each pixel
+//	private double[][] energy;  //the energy of each pixel
 	private double[][] distanceTo; //distance to vertex i, j
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix in the minimum path. The row can be inferred (i-1)
 	
@@ -18,7 +18,6 @@ public class SeamCarver {
 		width = picture.width();
 		height =  picture.height();
 		matrixOfPixels = new int[height][width];
-		energy = new double[height][width];
 		distanceTo = new double[height][width];
 		colTo = new int[height][width]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
@@ -31,11 +30,9 @@ public class SeamCarver {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (i == 0 || i == (height-1) || j == 0 || j == (width-1)) { //corner cases
-					energy[i][j] = 1000;
 					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 				else {
-					energy[i][j] = energyOfPixel(i, j);	
 					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 			}			
@@ -62,20 +59,21 @@ public class SeamCarver {
 	
 	public  double energy(int x, int y)   {            // energy of pixel at column x and row y
 		if (x < 0 || x > (width-1) || y < 0 || y > (height-1)) throw new java.lang.IllegalArgumentException("index out of bound");
-		return energy[y][x];
+		return Math.sqrt(squareOfTheXGradient(y, x) + squareOfTheYGradient(y, x));
 	}
 	
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.POSITIVE_INFINITY;
+		double[][] energy = caculateEnergyMatrix();
 		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
 		for (int j = 0; j < width; j++) { 
-			distanceTo[0][j] = energy[0][j];
+			distanceTo[0][j] = energy(j, 0);
 		}
 		int[] verticalSeam = new int[height];
 		//first relaxes all possible vertices to get the distance and colTo matrices
 		for (int i = 0; i < (height-1); i++) {       // last row cannot be relaxed
 			for (int j = 0; j < width; j++) {
-				relaxVertex(i,j);				
+				relaxVertex(i,j, energy, distanceTo);				
 			}
 		}
 		//sweeps the last row to find the lowest distance and get the col of the lowest distance
@@ -98,17 +96,15 @@ public class SeamCarver {
 	public int[] findHorizontalSeam() {
 		//transposes the matrices
 		int [] horizontalSeam = new int[width()];
-		energy = transposeMatrix(energy);
-		distanceTo = transposeMatrix(distanceTo);
+		transposeMatrix(matrixOfPixels);
 		colTo = transposeMatrix(colTo);
 	    int widthTemp = width;
 		width = height;
 		height = widthTemp;
 		//call verticalSeam
 		horizontalSeam = findVerticalSeam();
-		//transposes the matrices back back
-		energy = transposeMatrix(energy);
-		distanceTo = transposeMatrix(distanceTo);
+		//transposes the matrix back
+		transposeMatrix(matrixOfPixels);
 		colTo = transposeMatrix(colTo);
 	    widthTemp = width;
 		width = height;
@@ -183,7 +179,7 @@ public class SeamCarver {
 		return Math.sqrt(squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col));
 	}
 	
-	private void relaxVertex(int i, int j) {
+	private void relaxVertex(int i, int j, double[][] energy, double[][] distanceTo) {
 		if (j > 0 && distanceTo[i+1][j-1] > (distanceTo[i][j] + energy[i+1][j-1]))   {
 			distanceTo[i+1][j-1] = (distanceTo[i][j] + energy[i+1][j-1]);
 			colTo[i+1][j-1] = j;
@@ -236,7 +232,8 @@ public class SeamCarver {
 	}
 	
 	// calculate energy	
-	private void caculateEnergyMatrix() {
+	private double[][] caculateEnergyMatrix() {
+		double[][] energy = new double[height][width];
 		for (int i = 0; i < height ; i++) {			
 			for (int j = 0; j < width; j++) {
 				if (i == 0 || i == (height-1) || j == 0 || j == (width-1)) {
@@ -247,6 +244,7 @@ public class SeamCarver {
 				}
 			}
 		}
+		return energy;
 	}
 	
 	private boolean verifyIfSeamIsValid(int[] seam, int upperBoundIndex) {
@@ -283,11 +281,12 @@ public class SeamCarver {
 	
         SeamCarver sc = new SeamCarver(picture);
         
-        StdOut.printf("Printing distance calculated for each pixel.\n");        
-
+        StdOut.printf("Printing distance calculated for each pixel.\n");
+        
+        double[][] energy = sc.caculateEnergyMatrix();
         for (int row = 0; row < sc.height(); row++) {
             for (int col = 0; col < sc.width(); col++)
-                StdOut.printf("%9.0f ", sc.energy(col, row));
+                StdOut.printf("%9.0f ", energy[row][col]);
             StdOut.println();
         }
         

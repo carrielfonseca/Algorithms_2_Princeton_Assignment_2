@@ -10,7 +10,7 @@ public class SeamCarver {
 	private int[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
 	private double[][] energy;  //the energy of each pixel
 	private double[][] distanceTo; //distance to vertex i, j
-	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i-1)
+	private int[][] colTo; //column of the vertex before vertex i,j in the matrix in the minimum path. The row can be inferred (i-1)
 	
 	public SeamCarver(Picture picture) {
 		if (picture == null) throw new java.lang.IllegalArgumentException("null argument");

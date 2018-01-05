@@ -8,8 +8,6 @@ public class SeamCarver {
 	private Picture picture;
 	private int width, height;
 	private int[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
-//	private double[][] energy;  //the energy of each pixel
-	private double[][] distanceTo; //distance to vertex i, j
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix in the minimum path. The row can be inferred (i-1)
 	
 	public SeamCarver(Picture picture) {
@@ -18,7 +16,6 @@ public class SeamCarver {
 		width = picture.width();
 		height =  picture.height();
 		matrixOfPixels = new int[height][width];
-		distanceTo = new double[height][width];
 		colTo = new int[height][width]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
 		for (int i = 0; i < height; i++) {
@@ -30,10 +27,10 @@ public class SeamCarver {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (i == 0 || i == (height-1) || j == 0 || j == (width-1)) { //corner cases
-					distanceTo[i][j] = Double.POSITIVE_INFINITY;
+//					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 				else {
-					distanceTo[i][j] = Double.POSITIVE_INFINITY;
+//					distanceTo[i][j] = Double.POSITIVE_INFINITY;
 				}
 			}			
 		}
@@ -65,7 +62,8 @@ public class SeamCarver {
 	public   int[] findVerticalSeam()  {               // sequence of indices for vertical seam
 		double lowestDistance = Double.POSITIVE_INFINITY;
 		double[][] energy = caculateEnergyMatrix();
-		setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
+		double[][] distanceTo = new double[height][width];
+		distanceTo = setCoordinatesToInfinity(distanceTo); //needs to set distances in infinity before starting anything 
 		for (int j = 0; j < width; j++) { 
 			distanceTo[0][j] = energy(j, 0);
 		}
@@ -225,7 +223,7 @@ public class SeamCarver {
 	private double[][] setCoordinatesToInfinity(double[][] matrix) {
 		for (int i = 0; i < matrix.length ; i++) {
 			for (int j = 0; j < matrix[0].length ; j++) {
-				distanceTo[i][j] = Double.POSITIVE_INFINITY;
+				matrix[i][j] = Double.POSITIVE_INFINITY;
 			}			
 		}
 		return matrix;
@@ -288,15 +286,7 @@ public class SeamCarver {
             for (int col = 0; col < sc.width(); col++)
                 StdOut.printf("%9.0f ", energy[row][col]);
             StdOut.println();
-        }
-        
-        sc.findVerticalSeam();
-        
-        for (int row = 0; row < sc.height(); row++) {
-            for (int col = 0; col < sc.width(); col++)
-                StdOut.printf("%9.0f ", sc.distanceTo[row][col]);
-            StdOut.println();
-        }
+        }      
 		
 
 	}

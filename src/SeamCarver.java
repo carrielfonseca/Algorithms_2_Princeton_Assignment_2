@@ -201,18 +201,18 @@ public class SeamCarver {
 	}
 	
 	//transpose a matrix
-		private int[][] transposeMatrix(int[][] matrix) {
-			int[][] matrixTransposed;
-			int numberOfRows = matrix.length;
-			int numberOfColumns = matrix[0].length;
-			matrixTransposed = new int[numberOfColumns][numberOfRows];
-			for (int i = 0;i < numberOfRows; i++) {
-				for (int j = 0; j < numberOfColumns;j++) {
-					matrixTransposed[j][i] = matrix[i][j];
-				}
+	private int[][] transposeMatrix(int[][] matrix) {
+		int[][] matrixTransposed;
+		int numberOfRows = matrix.length;
+		int numberOfColumns = matrix[0].length;
+		matrixTransposed = new int[numberOfColumns][numberOfRows];
+		for (int i = 0;i < numberOfRows; i++) {
+			for (int j = 0; j < numberOfColumns;j++) {
+				matrixTransposed[j][i] = matrix[i][j];
 			}
-			return matrixTransposed;
 		}
+		return matrixTransposed;
+	}
 	
 	private double[][] setCoordinatesToInfinity(double[][] matrix) {
 		for (int i = 0; i < matrix.length ; i++) {

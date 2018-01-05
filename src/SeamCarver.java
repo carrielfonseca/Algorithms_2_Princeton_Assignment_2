@@ -7,7 +7,7 @@ public class SeamCarver {
 	
 	private Picture picture;
 	private int width, height;
-	private Color[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
+	private int[][] matrixOfPixels; //Color has 3 coordinates: red,, blue and green  (RBG)
 	private double[][] energy;  //the energy of each pixel
 	private double[][] distanceTo; //distance to vertex i, j
 	private int[][] colTo; //column of the vertex before vertex i,j in the matrix. The row can be inferred (i-1)
@@ -17,14 +17,14 @@ public class SeamCarver {
 		this.picture = new Picture(picture); //makes a Deep Copy of the original Picture passed in the constructor
 		width = picture.width();
 		height =  picture.height();
-		matrixOfPixels = new Color[height][width];
+		matrixOfPixels = new int[height][width];
 		energy = new double[height][width];
 		distanceTo = new double[height][width];
 		colTo = new int[height][width]; 
 		// fills out Pixel Matrix with each Pixel being a Color object
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width ; j++) {
-				matrixOfPixels[i][j] = picture.get(j, i);	
+				matrixOfPixels[i][j] = picture.getRGB(j, i);	
 			}			
 		}
 		// fills out energy and distance matrix
@@ -46,7 +46,7 @@ public class SeamCarver {
 		picture = new Picture(width, height);
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width ; j++) {
-				picture.set(j, i, matrixOfPixels[i][j]);
+				picture.setRGB(j, i, matrixOfPixels[i][j]);
 			}
 		}
 		return picture;
@@ -122,7 +122,7 @@ public class SeamCarver {
 		if (seam.length != height()) throw new java.lang.IllegalArgumentException("seam does not have the same height");
 		if (!verifyIfSeamIsValid(seam, width()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
 		if (width() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal width");
-		Color[][] matrixOfPixelsNew = new Color[height][width-1];
+		int[][] matrixOfPixelsNew = new int[height][width-1];
 		for (int i = 0; i < height(); i++) {
 			for (int j = 0; j < (width()-1); j++) {  //fills in the hole when removing a pixel
 				if (j < seam[i]) {
@@ -143,7 +143,7 @@ public class SeamCarver {
 		if (seam.length != width()) throw new java.lang.IllegalArgumentException("seam does not have the same width");
 		if (!verifyIfSeamIsValid(seam, height()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
 		if (height() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal height");
-		Color[][] matrixOfPixelsNew = new Color[height-1][width];
+		int[][] matrixOfPixelsNew = new int[height-1][width];
 		for (int j = 0; j < width(); j++) {
 			for (int i = 0; i < (height()-1); i++) {  //fills in the hole when removing a pixel
 				if (i < seam[j]) {
@@ -153,7 +153,6 @@ public class SeamCarver {
 				}			
 				
 			}
-			matrixOfPixels[(height-1)][j] = null; //no loitering
 		}		
 		height = height - 1;
 		matrixOfPixels = matrixOfPixelsNew;
@@ -161,9 +160,9 @@ public class SeamCarver {
 	}
 	
 	private double squareOfTheXGradient(int row, int col) {
-		double deltaRed = matrixOfPixels[row][col-1].getRed() - matrixOfPixels[row][col+1].getRed();
-		double deltaGreen = matrixOfPixels[row][col-1].getGreen() - matrixOfPixels[row][col+1].getGreen();
-		double deltaBlue = matrixOfPixels[row][col-1].getBlue() - matrixOfPixels[row][col+1].getBlue();
+		double deltaRed = new Color(matrixOfPixels[row][col-1]).getRed() - new Color(matrixOfPixels[row][col+1]).getRed();
+		double deltaGreen = new Color(matrixOfPixels[row][col-1]).getGreen() - new Color(matrixOfPixels[row][col+1]).getGreen();
+		double deltaBlue = new Color(matrixOfPixels[row][col-1]).getBlue() - new Color(matrixOfPixels[row][col+1]).getBlue();
 		double deltaRedSquared = Math.pow(deltaRed,2);
 		double deltaGreenSquared = Math.pow(deltaGreen,2);
 		double deltaBlueSquared = Math.pow(deltaBlue,2);
@@ -171,9 +170,9 @@ public class SeamCarver {
 	}
 	
 	private double squareOfTheYGradient(int row, int col) {
-		double deltaRed = matrixOfPixels[row-1][col].getRed() - matrixOfPixels[row+1][col].getRed();
-		double deltaGreen = matrixOfPixels[row-1][col].getGreen() - matrixOfPixels[row+1][col].getGreen();
-		double deltaBlue = matrixOfPixels[row-1][col].getBlue() - matrixOfPixels[row+1][col].getBlue();
+		double deltaRed = new Color(matrixOfPixels[row-1][col]).getRed() - new Color(matrixOfPixels[row+1][col]).getRed();
+		double deltaGreen = new Color(matrixOfPixels[row-1][col]).getGreen() - new Color(matrixOfPixels[row+1][col]).getGreen();
+		double deltaBlue = new Color(matrixOfPixels[row-1][col]).getBlue() - new Color(matrixOfPixels[row+1][col]).getBlue();
 		double deltaRedSquared = Math.pow(deltaRed,2);
 		double deltaGreenSquared = Math.pow(deltaGreen,2);
 		double deltaBlueSquared = Math.pow(deltaBlue,2);

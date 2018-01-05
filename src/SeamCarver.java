@@ -88,15 +88,16 @@ public class SeamCarver {
 	public int[] findHorizontalSeam() {
 		//transposes the matrices
 		int [] horizontalSeam = new int[width()];
-		transposeMatrix(matrixOfPixels);
 		colTo = transposeMatrix(colTo);
+		matrixOfPixels = transposeMatrix(matrixOfPixels);
+		
 	    int widthTemp = width;
 		width = height;
 		height = widthTemp;
 		//call verticalSeam
 		horizontalSeam = findVerticalSeam();
 		//transposes the matrix back
-		transposeMatrix(matrixOfPixels);
+		matrixOfPixels = transposeMatrix(matrixOfPixels);
 		colTo = transposeMatrix(colTo);
 	    widthTemp = width;
 		width = height;
@@ -165,11 +166,7 @@ public class SeamCarver {
 		double deltaGreenSquared = Math.pow(deltaGreen,2);
 		double deltaBlueSquared = Math.pow(deltaBlue,2);
 		return (deltaRedSquared  + deltaGreenSquared + deltaBlueSquared);
-	}
-	
-	private double energyOfPixel(int row, int col) {		
-		return Math.sqrt(squareOfTheXGradient(row, col) + squareOfTheYGradient(row, col));
-	}
+	}	
 	
 	private void relaxVertex(int i, int j, double[][] energy, double[][] distanceTo) {
 		if (j > 0 && distanceTo[i+1][j-1] > (distanceTo[i][j] + energy[i+1][j-1]))   {
@@ -232,7 +229,7 @@ public class SeamCarver {
 					energy[i][j] = 1000;
 				}
 				else {
-					energy[i][j] = energyOfPixel(i, j);	
+					energy[i][j] = energy(j, i);
 				}
 			}
 		}

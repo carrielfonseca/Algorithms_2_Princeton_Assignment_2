@@ -277,9 +277,6 @@ public class SeamCarver {
             for (int col = 0; col < sc.width(); col++)
                 StdOut.printf("%9.0f ", energy[row][col]);
             StdOut.println();
-        }      
-		
-
+        }     
 	}
-
 }

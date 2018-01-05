@@ -23,17 +23,6 @@ public class SeamCarver {
 				matrixOfPixels[i][j] = picture.getRGB(j, i);	
 			}			
 		}
-		// fills out energy and distance matrix
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				if (i == 0 || i == (height-1) || j == 0 || j == (width-1)) { //corner cases
-//					distanceTo[i][j] = Double.POSITIVE_INFINITY;
-				}
-				else {
-//					distanceTo[i][j] = Double.POSITIVE_INFINITY;
-				}
-			}			
-		}
 	}
 	
 	public Picture picture() {                 // current picture

@@ -122,13 +122,19 @@ public class SeamCarver {
 		if (seam.length != height()) throw new java.lang.IllegalArgumentException("seam does not have the same height");
 		if (!verifyIfSeamIsValid(seam, width()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
 		if (width() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal width");
+		Color[][] matrixOfPixelsNew = new Color[height][width-1];
 		for (int i = 0; i < height(); i++) {
-			for (int j = seam[i]; j < (width()-1); j++) {  //fills in the hole when removing a pixel
-				matrixOfPixels[i][j] = matrixOfPixels[i][j+1];
+			for (int j = 0; j < (width()-1); j++) {  //fills in the hole when removing a pixel
+				if (j < seam[i]) {
+					matrixOfPixelsNew[i][j] = matrixOfPixels[i][j];
+				} else {   // j >= seam[i]
+					matrixOfPixelsNew[i][j] = matrixOfPixels[i][j+1]; //skips  the hole left by coordinate[i][j]
+				}				
 			}
-			matrixOfPixels[i][(width-1)] = null; //no loitering
+//			matrixOfPixels[i][(width-1)] = null; //no loitering
 		}		
 		width = width - 1;
+		matrixOfPixels = matrixOfPixelsNew;
 		caculateEnergyMatrix();
 	}
 	
@@ -137,13 +143,20 @@ public class SeamCarver {
 		if (seam.length != width()) throw new java.lang.IllegalArgumentException("seam does not have the same width");
 		if (!verifyIfSeamIsValid(seam, height()-1)) throw new java.lang.IllegalArgumentException("seam is not valid");
 		if (height() <= 1) throw new java.lang.IllegalArgumentException("picture is of minimal height");
+		Color[][] matrixOfPixelsNew = new Color[height-1][width];
 		for (int j = 0; j < width(); j++) {
-			for (int i = seam[j]; i < (height()-1); i++) {  //fills in the hole when removing a pixel
-				matrixOfPixels[i][j] = matrixOfPixels[i+1][j];
+			for (int i = 0; i < (height()-1); i++) {  //fills in the hole when removing a pixel
+				if (i < seam[j]) {
+					matrixOfPixelsNew[i][j] = matrixOfPixels[i][j];
+				} else {   // i >= seam[j]
+					matrixOfPixelsNew[i][j] = matrixOfPixels[i+1][j]; //skips  the hole left by coordinate[i][j]
+				}			
+				
 			}
 			matrixOfPixels[(height-1)][j] = null; //no loitering
 		}		
 		height = height - 1;
+		matrixOfPixels = matrixOfPixelsNew;
 		caculateEnergyMatrix();
 	}
 	
